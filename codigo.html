@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colapso 2099 - Edición 5 Rondas</title>
+<link rel="stylesheet" href="/codigo.css">
+</head>
+<body>
+
+<h1>🌍 COLAPSO 2099</h1>
+
+<div class="container">
+    <div class="panel">
+        <h2>Panel de Control</h2>
+        <input id="playerName" placeholder="Nombre del nuevo líder...">
+        <button onclick="addPlayer()" style="background:#444; color:white; width:100%;">Registrar Jugador</button>
+        
+        <div style="margin-top:20px; display: flex; justify-content: space-between; align-items: center;">
+            <h3>Ronda: <span id="round" style="color:#00ecff;">0</span> / 5</h3>
+            <h3>Estabilidad: <span id="stability">10</span>/10</h3>
+        </div>
+
+        <div id="ranking"></div>
+
+        <button class="btn-process" onclick="nextRound()">Procesar Ronda Actual</button>
+        <button onclick="startGame()" style="width:100%; background:#333; color:#aaa; margin-top:10px;">Iniciar Partida</button>
+        <button class="btn-danger" onclick="manualReset()">Reiniciar Todo (Borrar Jugadores)</button>
+    </div>
+
+    <div class="panel">
+        <h2>Terminal de Decisiones</h2>
+        <p>Selecciona tu nombre y elige tu acción secreta:</p>
+        <select id="playerSelect"></select>
+        
+        <div style="display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px;">
+            <button class="btn-cooperate" onclick="sendDecision('cooperate')">🟢 COOPERAR (+$ Pozo, +5 Chatarra)</button>
+            <button class="btn-betray" onclick="sendDecision('betray')">🔴 TRAICIONAR (-2 Estabilidad, +20 Riqueza, +20 Chatarra)</button>
+            <button class="btn-repair" onclick="sendDecision('repair')">🔧 REPARAR (+1 Estabilidad, -5 Chatarra)</button>
+        </div>
+
+        <p id="status" class="status-msg"></p>
+    </div>
+</div>
+
+<script src="/codigo.js">
+
+</script>
+</body>
+</html>

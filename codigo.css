@@ -1,0 +1,46 @@
+body { 
+    font-family: 'Segoe UI', Arial, sans-serif; 
+    background: #111; 
+    color: #eee; 
+    margin: 0; 
+    padding: 20px; 
+}
+
+h1 { 
+    text-align: center; 
+    color: #00ff99; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+}
+
+.container { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+@media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
+    .panel { background: #222; padding: 20px; border-radius: 10px; border: 1px solid #333; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+    h2 { color: #00ecff; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 0; }
+    button { padding: 10px 15px; margin: 5px; cursor: pointer; border: none; border-radius: 5px; font-weight: bold; transition: 0.2s; }
+    
+.btn-cooperate { background: #00aa66; color: white; }
+
+.btn-betray { background: #cc3333; color: white; }
+
+.btn-repair { background: #e6a23c; color: #111; }
+
+.btn-process { background: #00ecff; color: #111; width: 100%; margin-top: 10px; font-size: 1.1em; }
+
+.btn-danger { background: #444; color: #ff5555; border: 1px solid #ff5555; margin-top: 20px; }
+    button:hover { opacity: 0.8; transform: translateY(-1px); }
+    
+    input, select { padding: 10px; background: #333; border: 1px solid #555; color: white; border-radius: 5px; width: calc(100% - 22px); margin-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #1a1a1a; }
+    td, th { border: 1px solid #333; padding: 12px; text-align: center; }
+    th { background: #2a2a2a; color: #00ff99; }
+    .status-msg { margin-top: 15px; font-weight: bold; color: #ffc107; min-height: 20px; text-align: center; }
+    .escape-badge { background: #9c27b0; color: white; padding: 3px 7px; border-radius: 4px; font-size: 0.8em; font-weight: bold; animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
