@@ -2,8 +2,8 @@ let game = {
     round: 0,
     stability: 10,
     started: false,
-    organizations: [], // Cambiado de players a organizations
-    decisions: {} // Aquí se guardan las decisiones: { "id": "tipo" }
+    organizations: [], 
+    decisions: {} 
 };
 
 function save() {
@@ -19,20 +19,20 @@ function load() {
     render();
 }
 
-function addOrganization() { // Renombrada de addPlayer
-    let input = document.getElementById("organizationName"); // Ajustado id del input
+function addOrganization() { 
+    let input = document.getElementById("organizationName"); 
     let name = input.value.trim();
     if (!name) return;
-    
+
     game.organizations.push({
         name,
         wealth: 0,
         trust: 10,
         scrap: 10,
-        reputation: 0, // Inicialización de reputación
+        reputation: 0, 
         escape: false
     });
-    
+
     input.value = "";
     save();
 }
@@ -42,6 +42,7 @@ function startGame() {
     game.started = true;
     game.round = 1;
     game.stability = 10;
+    game.decisions = {}; // Limpiar decisiones previas al iniciar
     save();
 }
 
@@ -51,7 +52,7 @@ function render() {
     stabEl.innerText = game.stability;
     stabEl.style.color = game.stability > 6 ? "#00ff99" : game.stability > 3 ? "#e6a23c" : "#ff5555";
 
-    let select = document.getElementById("organizationSelect"); // Ajustado id del select
+    let select = document.getElementById("organizationSelect"); 
     select.innerHTML = '<option value="">-- Seleccionar tu organización --</option>';
     game.organizations.forEach((org, i) => {
         let op = document.createElement("option");
@@ -61,8 +62,7 @@ function render() {
     });
 
     let ranking = game.organizations.slice().sort((a, b) => b.wealth - a.wealth);
-    
-    // Control de seguridad: se usa (org.reputation || 0) por si quedan datos viejos en el navegador
+
     let html = `<table><tr><th>Organización</th><th>Riqueza</th><th>Reputación</th><th>Chatarra</th><th>Estado</th></tr>`;
     ranking.forEach(org => {
         html += `<tr>
@@ -79,8 +79,8 @@ function render() {
 
 function sendDecision(type) {
     if(!game.started) return alert("El Facilitador debe iniciar la partida.");
-    
-    let select = document.getElementById("organizationSelect"); // Ajustado id del select
+
+    let select = document.getElementById("organizationSelect"); 
     let idx = select.value;
     if(idx === "") return alert("Selecciona el nombre de tu organización de la lista.");
 
@@ -89,7 +89,7 @@ function sendDecision(type) {
 
     let statusEl = document.getElementById("status");
     statusEl.innerHTML = `✅ ${game.organizations[idx].name}: Decisión registrada.<br><small>Se contará la última acción pulsada.</small>`;
-    
+
     setTimeout(() => { statusEl.innerText = "Esperando siguiente organización..."; }, 3000);
 }
 
@@ -108,10 +108,10 @@ function nextRound() {
     game.organizations.forEach((org, id) => {
         let decision = game.decisions[id];
         
+        // Control: Si una organización no votó, no procesa acciones pero si recibe el share cooperativo
         let share = (cooperators * 15) / game.organizations.length;
         org.wealth += share;
 
-        // Si es una organización vieja, aseguramos que tenga la propiedad creada antes de operar
         if (org.reputation === undefined) org.reputation = 0;
 
         if (decision === "cooperate") {
@@ -130,7 +130,7 @@ function nextRound() {
 
     game.stability = Math.min(10, game.stability - (betrayers * 2) + (repairers * 1));
 
-    // Sistema de selección aleatoria equitativa (pregunta a todas sin detenerse)
+    // Sistema de selección aleatoria equitativa de naves
     let candidates = [];
     game.organizations.forEach((org, id) => {
         if (org.scrap >= 50) {
@@ -146,7 +146,7 @@ function nextRound() {
     for (let candidate of candidates) {
         let org = candidate.organization;
         let currentOwner = game.organizations.find(o => o.escape);
-        
+
         if (org.escape) continue;
 
         let confirmMessage = currentOwner 

@@ -1,19 +1,17 @@
 body { 
-     background-image: url(/fondo.png);
-    background-size: cover;          /* Hace que la imagen cubra toda la pantalla */
-    background-position: center;     /* Centra la imagen en la pantalla */
-    background-repeat: no-repeat;    /* Evita que la imagen se multiplique como baldosas */
-    background-attachment: fixed;    /* Mantiene la imagen fija al hacer scroll */
-    margin: 0;                       /* Elimina los márgenes predeterminados del navegador */
-    height: 100vh;                   /* Asegura que el body ocupe toda la altura de la ventana */
+    background-image: url(/fondo.png);
+    background-size: cover; /* Hace que la imagen cubra todo el espacio */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se duplique */
+    height: 920px; /* Es necesario darle una altura al elemento */
     font-family: 'Segoe UI', Arial, sans-serif; 
     color: #eee; 
     margin: 0; 
     padding: 20px; 
 }
 
-h1 { 
-    font-family: 'Times New Roman', Times, serif;
+h1 {
+    font-family: 'Times New Roman', Times, serif; 
     text-align: center; 
     color: #ffffff; 
     letter-spacing: 2px; 
