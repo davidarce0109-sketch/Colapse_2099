@@ -174,15 +174,32 @@ function nextRound() {
         return;
     }
 
-    if (game.round >= 5) {
+if (game.round >= 5) {
         let winner;
+        
         if (game.stability >= 7) {
-            winner = game.organizations.slice().sort((a, b) => b.wealth - a.wealth)[0];
-            alert(`🏆 FIN DE LA PARTIDA 🏆\nEl planeta sobrevivió con alta estabilidad (${game.stability}/10).\nLa organización líder más rica y ganadora es: ${winner.name} ($${winner.wealth.toFixed(1)})`);
+            // --- ALTA ESTABILIDAD: Prioridad Riqueza ---
+            let ranking = game.organizations.slice().sort((a, b) => {
+                if (b.wealth !== a.wealth) return b.wealth - a.wealth;         // 1° Riqueza
+                if (b.reputation !== a.reputation) return b.reputation - a.reputation; // 2° Reputación
+                return b.scrap - a.scrap;                                     // 3° Chatarra
+            });
+            winner = ranking[0];
+            
+            alert(`🏆 FIN DE LA PARTIDA 🏆\nEl planeta sobrevivió con alta estabilidad (${game.stability}/10).\nGanador principal por Riqueza:\n👉 ${winner.name} ($${winner.wealth.toFixed(1)} | Rep: ${winner.reputation} | Chatarra: ${winner.scrap})`);
+        
         } else {
-            winner = game.organizations.slice().sort((a, b) => b.reputation - a.reputation)[0];
-            alert(`🏆 FIN DE LA PARTIDA 🏆\nEl planeta sobrevivió con baja estabilidad (${game.stability}/10).\nLa organización líder con más reputación y ganadora es: ${winner.name} (Reputación: ${winner.reputation})`);
+            // --- BAJA ESTABILIDAD (< 7): Prioridad Reputación ---
+            let ranking = game.organizations.slice().sort((a, b) => {
+                if (b.reputation !== a.reputation) return b.reputation - a.reputation; // 1° Reputación
+                if (b.wealth !== a.wealth) return b.wealth - a.wealth;                 // 2° Riqueza
+                return b.scrap - a.scrap;                                             // 3° Chatarra
+            });
+            winner = ranking[0];
+            
+            alert(`🏆 FIN DE LA PARTIDA 🏆\nEl planeta sobrevivió con baja estabilidad (${game.stability}/10).\nGanador principal por Reputación:\n👉 ${winner.name} (Rep: ${winner.reputation} | $${winner.wealth.toFixed(1)} | Chatarra: ${winner.scrap})`);
         }
+        
         manualReset(true);
         return;
     }
